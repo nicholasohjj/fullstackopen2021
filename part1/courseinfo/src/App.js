@@ -1,21 +1,8 @@
 import React from 'react'
 
-const Header = ({course}) => {
-  return (
-    <div>
-      <h1>{course}</h1>
-    </div>
-  )
-}
+const Header = ({course}) => <h1>{course}</h1>
 
-const Part = ({title,value}) => {
-  return (
-    <div>
-      <p>{title} {value}</p>
-
-    </div>
-  )
-}
+const Part = ({title,value}) =><p>{title} {value}</p>
 
 const Content = ({parts}) => {
   return (
@@ -27,13 +14,7 @@ const Content = ({parts}) => {
   )
 }
 
-const Total = ({parts}) => {
-  return (
-    <div>
-      <p>Number of exercises {parts[0].exercises+parts[1].exercises+parts[2].exercises}</p>
-    </div>
-  )
-}
+const Total = ({parts}) => <p>Number of exercises {parts[0].exercises+parts[1].exercises+parts[2].exercises}</p>
 
 const App = () => {
   const course = {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react' 
 
 const App = () => {
   const anecdotes = [
@@ -12,10 +12,19 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
+  const Random = () => setSelected(Math.floor(Math.random()*anecdotes.length))
+  const points = [0,0,0,0,0,0,0]
+  const copy = [...points]
+  const vote = () => copy[selected] +=1
+
 
   return (
     <div>
       {anecdotes[selected]}
+      <p>Has {points[selected]} votes </p>
+      <br/>
+      <button onClick={vote}>Vote here!</button>
+      <button onClick={Random}>Next anecdote</button>
     </div>
   )
 }
