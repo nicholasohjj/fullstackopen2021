@@ -1,5 +1,49 @@
 import React, { useState } from 'react'
 
+const Filter = ({newFilter,handleNamefilter}) => {
+  return (
+    <div>
+      filter by name:
+      <input value={newFilter} onChange={handleNamefilter}/>
+  </div>
+  )
+}
+
+const Input = ({text,value,onChange}) => {
+  return (
+    <div>
+    {text}: 
+          <input value={value} onChange={onChange}/>
+    </div>
+  )
+}
+
+const Form = ({addName,newName,handleNameChange,newNumber,handleNumberChange}) => {
+  return (
+    <div>
+      <form onSubmit={addName}>
+      <Input text="name" value={newName} onChange={handleNameChange}/>
+      <Input text="number" value={newNumber} onChange={handleNumberChange}/>
+      <div>
+        <button type="submit">add</button>
+      </div>
+      </form>
+    </div>
+  )
+}
+
+const Numbers = ({notesToShow}) => {
+  return (
+    <div>
+      <ul>
+        {notesToShow.map(person=> 
+        <li key={person.name}> {person.name} {person.number}</li>
+        )}   
+      </ul>
+    </div>
+  )
+}
+
 const App = () => {
   const [ persons, setPersons ] = useState([
     { name: 'Arto Hellas',
@@ -28,9 +72,9 @@ const App = () => {
     }
 
 //Filter displayed list
-  const notesToShow = (newFilter.trim()===false)
+  const notesToShow = (!newFilter.trim())
   ? persons
-  : persons.filter(person => person.name.toLowerCase() === newFilter.toLowerCase())
+  : persons.filter(person => person.name.toLowerCase().includes(newFilter.toLowerCase()))
 
   const addName = (event) => {
     event.preventDefault()
@@ -51,29 +95,15 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        filter by name:
-        <input value={newFilter} onChange={handleNamefilter}/>
-      </div>
+      <Filter newFilter={newFilter} handleNamefilter={handleNamefilter} />
       <h2>Add a new</h2>
-
-      <form onSubmit={addName}>
-        <div>
-          name: 
-          <input value={newName} onChange={handleNameChange}/>
-          number: 
-          <input value={newNumber} onChange={handleNumberChange}/>
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <Form addName={addName}
+            newName={newName}
+            handleNameChange={handleNameChange}
+            newNumber={newNumber}
+            handleNumberChange={handleNumberChange}/>
       <h2>Numbers</h2>
-      <ul>
-        {notesToShow.map(person=> 
-        <li key={person.name}> {person.name} {person.number}</li>
-        )}   
-      </ul>
+      <Numbers notesToShow={notesToShow} />
       </div>
   )
 }
