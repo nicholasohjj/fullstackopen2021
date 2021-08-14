@@ -44,6 +44,7 @@ const Numbers = ({notesToShow}) => {
   )
 }
 
+//App component
 const App = () => {
   const [ persons, setPersons ] = useState([
     { name: 'Arto Hellas',
@@ -71,11 +72,12 @@ const App = () => {
     setFilter(event.target.value)
     }
 
-//Filter displayed list
+  //Filter displayed list
   const notesToShow = (!newFilter.trim())
   ? persons
   : persons.filter(person => person.name.toLowerCase().includes(newFilter.toLowerCase()))
 
+  //Adds new element to persons array
   const addName = (event) => {
     event.preventDefault()
     const Name = {
