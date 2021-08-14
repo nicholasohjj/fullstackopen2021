@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 const App = () => {
   const [ persons, setPersons ] = useState([
     { name: 'Arto Hellas',
-      id: 1
     }
   ]) 
   const [ newName, setNewName ] = useState('')
@@ -13,17 +12,23 @@ const App = () => {
     setNewName(event.target.value)
   }
 
+  const names = persons.map(person=> person.name)
+
   const addName = (event) => {
     event.preventDefault()
     const Name = {
       name: newName,
-      id: persons.length + 1,
+    }
+    if (names.includes(newName)) {
+      alert('Test')
+    } else {
+      setPersons(persons.concat(Name))
+    
+      setNewName('')
     }
 
-    setPersons(persons.concat(Name))
-    
-    setNewName('')
   }
+  
 
     return (
     <div>
@@ -40,7 +45,7 @@ const App = () => {
       <h2>Numbers</h2>
       <ul>
         {persons.map(person=> 
-        <li key={person.id}> {person.name}</li>
+        <li key={person.name}> {person.name}</li>
         )}   
       </ul>
       </div>
