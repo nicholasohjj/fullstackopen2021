@@ -14,6 +14,19 @@ const Languages = ({country}) => {
   )
 }
 
+const Details = ({result}) => {
+  return(
+    <div key={result.name}>
+      <h1>{result.name}</h1>
+        <p>Capital {result.capital}</p>
+        <p>Population {result.capital}</p>
+        <h2>Languages</h2>
+        <Languages country={result}/>
+        <img alt="" width="300" height="200" src={result.flag} />
+    </div>
+  )
+}
+
 const App = () => {
   const [countries, setCountries] = useState([])
   const [newFilter,setFilter] = useState('')
@@ -48,21 +61,20 @@ const App = () => {
     } else if (FilterResults.length <10 && FilterResults.length >1) {
       return (
         <div>
-          {FilterResults.map(result => <p key={result.name}>{result.name}</p>)}
+          {FilterResults.map(result =>
+          <div>
+          <p key={result.name}>{result.name}</p>
+          <button>Show</button>
+          </div>
+          )}
         </div>
       )
     } else {
       return (
         <div>
           {FilterResults.map(result =>
-          <div key={result.name}>
-            <h1>{result.name}</h1>
-            <p>Capital {result.capital}</p>
-            <p>Population {result.capital}</p>
-            <h2>Languages</h2>
-            <Languages country={result}/>
-            <img alt="" width="300" height="200" src={result.flag} />
-          </div>)}
+          <Details result={result}/>
+          )}
         </div>
       )
     }
