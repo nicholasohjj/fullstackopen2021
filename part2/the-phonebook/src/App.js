@@ -89,7 +89,8 @@ const App = () => {
     event.preventDefault()
     const Name = {
       name: newName,
-      number: newNumber
+      number: newNumber,
+      id: persons.length+1
     }
     if (nameList.includes(newName.toLowerCase())) {
       alert(`${newName} is already added to phonebook`)
