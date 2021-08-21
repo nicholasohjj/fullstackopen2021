@@ -5,7 +5,7 @@ const api_key = process.env.REACT_APP_API_KEY
 const api_url = "http://api.weatherstack.com/current"
 
 const Weather = ({capital}) => {
-    const [weatherData, setWeatherData] = useState([]);
+  const [weatherData, setWeatherData] = useState([]);
   
     useEffect(()=> {
     axios
@@ -15,11 +15,9 @@ const Weather = ({capital}) => {
         setWeatherData(response.data)
       })
     },[capital])
-    
-    //Return value when data is undefined.
-    if (weatherData.current === undefined) {
-        return <p>Loading weather information...</p>;
-    }
+  
+  if (weatherData.current === undefined)
+    return <p>Loading weather information...</p>;
 
     return (
         <>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import Form from './components/form'
+import phoneservice from './components/phoneservice'
 
 const Filter = ({newFilter,handleNamefilter}) => {
   return (
@@ -7,29 +8,6 @@ const Filter = ({newFilter,handleNamefilter}) => {
       filter by name:
       <input value={newFilter} onChange={handleNamefilter}/>
   </div>
-  )
-}
-
-const Input = ({text,value,onChange}) => {
-  return (
-    <div>
-    {text}: 
-          <input value={value} onChange={onChange}/>
-    </div>
-  )
-}
-
-const Form = ({addName,newName,handleNameChange,newNumber,handleNumberChange}) => {
-  return (
-    <div>
-      <form onSubmit={addName}>
-      <Input text="name" value={newName} onChange={handleNameChange}/>
-      <Input text="number" value={newNumber} onChange={handleNumberChange}/>
-      <div>
-        <button type="submit">add</button>
-      </div>
-      </form>
-    </div>
   )
 }
 
@@ -48,19 +26,15 @@ const Numbers = ({notesToShow}) => {
 //App component
 const App = () => {
   const [ persons, setPersons ] = useState([]) 
-
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setFilter ] = useState('')
 
-  //UseEffect
-  const hook = () => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response=>setPersons(response.data))
-  }
-
-  useEffect(hook,[])
+  useEffect(() =>{
+    phoneservice
+      .getAll()
+      .then(allPersons=>setPersons(allPersons))
+  },[])
 
   const nameList = persons.map(person=> person.name.toLowerCase())
 
@@ -87,20 +61,24 @@ const App = () => {
   //Adds new element to persons array
   const addName = (event) => {
     event.preventDefault()
-    const Name = {
+
+    const newPerson = {
       name: newName,
       number: newNumber,
       id: persons.length+1
     }
+
     if (nameList.includes(newName.toLowerCase())) {
       alert(`${newName} is already added to phonebook`)
     } else {
-      setPersons(persons.concat(Name))
-    
-      setNewName('')
-      setNewNumber('')
-
-    }}
+      phoneservice
+        .addNew(newPerson)
+        .then(updatedList => {
+          setPersons(persons.concat(updatedList))
+          setNewNumber('')
+        })
+      }
+    }
 
   return (
     <div>
