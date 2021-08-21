@@ -21,11 +21,11 @@ const App = () => {
   }  
   
   return(
-    <div>
+    <>
       Find countries:
       <input value={searchValue} onChange={HandleChange}/>
       <Results searchValue={searchValue} countries={countries}/>
-    </div>
+    </>
 
   )
 }

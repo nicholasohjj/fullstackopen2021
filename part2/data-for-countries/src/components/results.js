@@ -1,6 +1,7 @@
 import React from 'react'
 import Details from './details'
 import ShowButton from './showButton'
+import Weather from './weather'
 
 const Results = ({countries,searchValue}) => {
 
@@ -18,7 +19,7 @@ const Results = ({countries,searchValue}) => {
         <div>
           {FilterResults.map(country =>
           <p key={country.name}>{country.name}
-          <ShowButton country={country}/>
+          <ShowButton key={country.name} country={country}/>
           </p>
           )}
         </div>
@@ -27,8 +28,13 @@ const Results = ({countries,searchValue}) => {
       return (
         <div>
           {FilterResults.map(country =>
-          <Details country={country}/>
+          <>
+            <Details key={country.name} country={country}/>
+            <h2>Weather in {country.name}</h2>
+            <Weather capital={country.capital} />
+          </>
           )}
+
         </div>
       )
     }

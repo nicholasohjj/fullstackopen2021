@@ -1,13 +1,14 @@
-import React from 'react'
+import React from 'react';
+
 
 
 const Details = ({country}) => {
     return (
-      <div key={country.name}>
+      <div>
         <h1>{country.name}</h1>
           <p>Capital {country.capital}</p>
           <p>Population {country.capital}</p>
-          <h2>Languages</h2>
+        <h2>Languages</h2>
           <ul>
             {country.languages.map(language=>
             <li key={language.name}>

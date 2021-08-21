@@ -7,16 +7,15 @@ const ShowButton = ({country}) => {
     const [show, setShow] = useState(false)
 
     const HandleShow = () => setShow(!show)
+    
     if (show===false) {
-        return (
-        <button onClick={HandleShow}>Show</button>
-        )
+        return <button onClick={HandleShow}>Show</button>
     } else {
         return (
-        <div>
-        <button onClick ={HandleShow}>Hide</button>
-        <Details country = {country} />
-        </div>
+        <>
+            <button onClick ={HandleShow}>Hide</button>
+            <Details country = {country} />
+        </>
         )
     }
       }
