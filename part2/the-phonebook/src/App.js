@@ -18,9 +18,7 @@ const App = () => {
       .getAll()
       .then(allPersons=>setPersons(allPersons))
   },[])
-
-  const nameList = persons.map(person=> person.name.toLowerCase())
-
+  
   const handleNameChange = (event) => {
     console.log(event.target.value)
     setNewName(event.target.value)
@@ -46,13 +44,29 @@ const App = () => {
     event.preventDefault()
 
     const newPerson = {
-      name: newName,
+      name: newName.trim(),
       number: newNumber,
       id: persons.length+1
     }
+    const nameCheck = persons.filter(person=> 
+      person.name.toLowerCase().includes(newPerson.name.toLowerCase())
+      )
+    
+    console.log(nameCheck)
 
-    if (nameList.includes(newName.toLowerCase())) {
-      alert(`${newName} is already added to phonebook`)
+    if (nameCheck) {
+      if (window.confirm(`${newName} is already added to phonebook. Would you like to update the number?`)) {
+        return (
+          phoneservice
+            .update(nameCheck[0].id, newPerson)
+            .then(updatedList=> {
+              setPersons(persons.map(person=>
+                person.id !== nameCheck[0].id
+                  ? person
+                  : updatedList))
+            })
+        )
+      }
     } else if (newName === ''|| newNumber === '') {
       alert("Name/number must be filled")
     } else {
