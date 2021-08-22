@@ -3,7 +3,7 @@ import Form from './components/form'
 import List from './components/list'
 import phoneservice from './components/phoneservice'
 import Filter from './components/filter'
-
+import Message from './components/message'
 
 
 //App component
@@ -12,6 +12,7 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setFilter ] = useState('')
+  const [ newMessage, setNewMessage ] = useState(null)
 
   useEffect(() =>{
     phoneservice
@@ -33,6 +34,7 @@ const App = () => {
     console.log(event.target.value)
     setFilter(event.target.value)
     }
+  
 
   //Filter displayed list
   const notesToShow = (!newFilter.trim())
@@ -65,7 +67,10 @@ const App = () => {
                 person.id !== nameCheck[0].id
                   ? person
                   : updatedList))
+          setNewMessage(`${newName} has been updated`)
+          setTimeout(()=>setNewMessage(null),5000)
             })
+            
         )
       }
     } else if (newName === ''|| newNumber === '') {
@@ -76,6 +81,8 @@ const App = () => {
         .then(updatedList => {
           setPersons(persons.concat(updatedList))
         })
+        setNewMessage(`${newName} has been added`)
+        setTimeout(()=>setNewMessage(null),5000)
       }
       setNewNumber('')
       setNewName('')
@@ -84,6 +91,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Message message={newMessage}/>
       <Filter newFilter={newFilter} handleNamefilter={handleNamefilter} />
       <h2>Add a new</h2>
       <Form addName={addName}
