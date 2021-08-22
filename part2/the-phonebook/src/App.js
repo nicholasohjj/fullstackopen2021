@@ -48,13 +48,14 @@ const App = () => {
       number: newNumber,
       id: persons.length+1
     }
+
     const nameCheck = persons.filter(person=> 
       person.name.toLowerCase().includes(newPerson.name.toLowerCase())
       )
     
     console.log(nameCheck)
 
-    if (nameCheck) {
+    if (nameCheck.length>0) {
       if (window.confirm(`${newName} is already added to phonebook. Would you like to update the number?`)) {
         return (
           phoneservice
