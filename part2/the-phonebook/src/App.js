@@ -70,6 +70,11 @@ const App = () => {
           setNewMessage(`${newName} has been updated`)
           setTimeout(()=>setNewMessage(null),5000)
             })
+            .catch(error=> {
+              setNewMessage(`${newName} has been already been removed from the server`)
+              setTimeout(()=>setNewMessage(null),5000)
+            }
+              )
             
         )
       }
@@ -80,9 +85,14 @@ const App = () => {
         .addNew(newPerson)
         .then(updatedList => {
           setPersons(persons.concat(updatedList))
+          setNewMessage(`${newName} has been added`)
+          setTimeout(()=>setNewMessage(null),5000)
         })
-        setNewMessage(`${newName} has been added`)
-        setTimeout(()=>setNewMessage(null),5000)
+        .catch(error=> {
+          setNewMessage(`${newName} has been already been added to the server`)
+          setTimeout(()=>setNewMessage(null),5000)
+        }
+        )
       }
       setNewNumber('')
       setNewName('')
