@@ -1,27 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Form from './components/form'
+import List from './components/list'
 import phoneservice from './components/phoneservice'
+import Filter from './components/filter'
 
-const Filter = ({newFilter,handleNamefilter}) => {
-  return (
-    <div>
-      filter by name:
-      <input value={newFilter} onChange={handleNamefilter}/>
-  </div>
-  )
-}
 
-const Numbers = ({notesToShow}) => {
-  return (
-    <div>
-      <ul>
-        {notesToShow.map(person=> 
-        <li key={person.name}> {person.name} {person.number}</li>
-        )}   
-      </ul>
-    </div>
-  )
-}
 
 //App component
 const App = () => {
@@ -70,14 +53,17 @@ const App = () => {
 
     if (nameList.includes(newName.toLowerCase())) {
       alert(`${newName} is already added to phonebook`)
+    } else if (newName === ''|| newNumber === '') {
+      alert("Name/number must be filled")
     } else {
       phoneservice
         .addNew(newPerson)
         .then(updatedList => {
           setPersons(persons.concat(updatedList))
-          setNewNumber('')
         })
       }
+      setNewNumber('')
+      setNewName('')
     }
 
   return (
@@ -91,7 +77,7 @@ const App = () => {
             newNumber={newNumber}
             handleNumberChange={handleNumberChange}/>
       <h2>Numbers</h2>
-      <Numbers notesToShow={notesToShow} />
+      <List notesToShow={notesToShow} setPersons={setPersons} persons={persons} />
       </div>
   )
 }

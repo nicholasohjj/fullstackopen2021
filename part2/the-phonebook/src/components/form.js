@@ -13,8 +13,8 @@ const Form = ({addName,newName,handleNameChange,newNumber,handleNumberChange}) =
     return (
       <div>
         <form onSubmit={addName}>
-        <Input text="name" value={newName} onChange={handleNameChange}/>
-        <Input text="number" value={newNumber} onChange={handleNumberChange}/>
+        <Input text="Name " value={newName} onChange={handleNameChange}/>
+        <Input text="Phone number " value={newNumber} onChange={handleNumberChange}/>
         <div>
           <button type="submit">add</button>
         </div>

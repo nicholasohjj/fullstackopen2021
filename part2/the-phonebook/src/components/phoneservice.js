@@ -9,9 +9,12 @@ const getAll = () => {
 }
 
 const addNew = (newPerson) => {
-    const request = axios.post(baseUrl, newPerson)
-    return request.then(response => response.data)
-  }
+  const request = axios.post(baseUrl, newPerson)
+  return request.then(response => response.data)
+}
 
+const removePerson = (id) => {
+  return axios.delete(`${baseUrl}/${id}`)
+}
 
-export default {getAll, addNew}
+export default {getAll, addNew, removePerson}
