@@ -48,7 +48,6 @@ const App = () => {
     const newPerson = {
       name: newName.trim(),
       number: newNumber,
-      id: persons.length+1
     }
 
     const nameCheck = persons.filter(person=> 
