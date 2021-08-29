@@ -56,46 +56,42 @@ const App = () => {
     
     console.log(nameCheck)
 
+    if (!newName.trim() || !newNumber.trim()) {
+      alert("Name/number must be filled")
+
     if (nameCheck.length>0) {
       if (window.confirm(`${newName} is already added to phonebook. Would you like to update the number?`)) {
         return (
           phoneservice
             .update(nameCheck[0].id, newPerson)
-            .then(updatedList=> {
-              setPersons(persons.map(person=>
+            .then(updatedList=> {setPersons(persons.map(person=>
                 person.id !== nameCheck[0].id
                   ? person
                   : updatedList))
           setNewMessage(`${newName} has been updated`)
           setTimeout(()=>setNewMessage(null),5000)
-            })
+        })
             .catch(error=> {
               setNewMessage(`${newName} has been already been removed from the server`)
               setTimeout(()=>setNewMessage(null),5000)
-            }
-              )
-            
-        )
-      }
-    } else if (newName === ''|| newNumber === '') {
-      alert("Name/number must be filled")
-    } else {
-      phoneservice
-        .addNew(newPerson)
-        .then(updatedList => {
-          setPersons(persons.concat(updatedList))
-          setNewMessage(`${newName} has been added`)
-          setTimeout(()=>setNewMessage(null),5000)
-        })
-        .catch(error=> {
-          setNewMessage(`${newName} has been already been added to the server`)
-          setTimeout(()=>setNewMessage(null),5000)
+            })
+        )}
+      } else {
+        phoneservice
+          .addNew(newPerson)
+          .then(updatedList => {
+              setPersons(persons.concat(updatedList))
+              setNewMessage(`${newName} has been added`)
+              setTimeout(()=>setNewMessage(null),5000)
+            })
+          .catch(error=> {
+            setNewMessage(`${newName} has been already been added to the server`)
+            setTimeout(()=>setNewMessage(null),5000)
+          })
         }
-        )
+        setNewNumber('')
+        setNewName('')
       }
-      setNewNumber('')
-      setNewName('')
-    }
 
   return (
     <div>
