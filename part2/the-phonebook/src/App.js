@@ -72,7 +72,7 @@ const App = () => {
           setTimeout(()=>setNewMessage(null),5000)
         })
             .catch(error=> {
-              setNewMessage(`${newName} has been already been removed from the server`)
+              setNewMessage(`${newName} has been already been removed from the srver`)
               setTimeout(()=>setNewMessage(null),5000)
             })
         )}
@@ -92,6 +92,7 @@ const App = () => {
         setNewNumber('')
         setNewName('')
       }
+  }
 
   return (
     <div>
