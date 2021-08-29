@@ -58,8 +58,7 @@ const App = () => {
 
     if (!newName.trim() || !newNumber.trim()) {
       alert("Name/number must be filled")
-
-    if (nameCheck.length>0) {
+    } else if (nameCheck.length>0) {
       if (window.confirm(`${newName} is already added to phonebook. Would you like to update the number?`)) {
         return (
           phoneservice
@@ -92,7 +91,7 @@ const App = () => {
         setNewNumber('')
         setNewName('')
       }
-  }
+
 
   return (
     <div>
