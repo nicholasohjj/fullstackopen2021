@@ -9,14 +9,15 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:ui": "rm -rf build && cd ../part2/the-phonebook/ && npm run build --prod && cp -r build ../../part3",
     "deploy": "git push heroku main",
-    "deploy:full" : "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",
-    "logs:prod" : "heroku logs --tail"
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",
+    "logs:prod": "heroku logs --tail"
   },
   "author": "Nicholas",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "heroku": "^7.59.0",
     "morgan": "^1.10.0",
     "response-time": "^2.3.2"
   },
