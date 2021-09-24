@@ -2,6 +2,7 @@ const http = require('http')
 const express = require('express')
 const app = express()
 const cors = require('cors')
+require('dotenv').config()
 const mongoose = require('mongoose')
 
 const blogSchema = new mongoose.Schema({
@@ -11,13 +12,25 @@ const blogSchema = new mongoose.Schema({
   likes: Number
 })
 
+const requestLogger = (req, res, next) => {
+  console.log('Method:', req.method)
+  console.log('Path:  ', req.path)
+  console.log('Body:  ', req.body)
+  console.log('---')
+  next()
+}
+
+app.use(requestLogger)
+
+
 const Blog = mongoose.model('Blog', blogSchema)
 
-const mongoUrl = 'mongodb://localhost/bloglist'
+const mongoUrl = process.env.MONGODB_URI
 mongoose.connect(mongoUrl)
-
 app.use(cors())
 app.use(express.json())
+app.use(express.static('build'))
+
 
 app.get('/api/blogs', (request, response) => {
   Blog
@@ -37,7 +50,7 @@ app.post('/api/blogs', (request, response) => {
     })
 })
 
-const PORT = 3003
+const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
