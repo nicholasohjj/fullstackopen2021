@@ -10,8 +10,8 @@ blogRouter.get('/', (request, response) => {
       });
 });
 
-blogRouter.post('/', (request, response) => {
-  const blog = new Blog(request.body);
+blogRouter.post('/', async (request, response) => {
+  const blog = await new Blog(request.body);
 
   blog
       .save()
